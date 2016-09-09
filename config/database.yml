@@ -10,3 +10,17 @@ production:
   database: <%= ENV['PRODUCTION_DB_NAME'] or 'cobudget_production' %>
   username: <%= ENV['DB_USERNAME'] or 'postgres' %>
   password: <%= ENV['DB_PASSWORD'] or '' %>
+  
+development:
+  <<: *defaults
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] or 'localhost' %>
+  database: <%= ENV['DEV_DB_NAME'] or 'cobudget_development' %>
+  username: <%= ENV['DB_USERNAME'] or 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] or '' %>
+
+test:
+  <<: *defaults
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] or 'localhost' %>
+  database: <%= ENV['TEST_DB_NAME'] or 'cobudget_test' %>
+  username: <%= ENV['DB_USERNAME'] or 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] or '' %>
