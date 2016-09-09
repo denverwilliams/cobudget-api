@@ -29,8 +29,15 @@ Rails.application.configure do
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  config.action_mailer.delivery_method = :test
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address        => smtp.gmail.com,
+    :port           => 587,
+    :user_name      => smtp@hippiehacker.ii.org.nz,
+    :password       => 73%b%8AX,
+    :authentication => "plain",
+   :enable_starttls_auto => true
+  }
 
   # commented out because it is overriding application.rb active_job.queue_adapter = :delayed_job
   # config.active_job.queue_adapter = :test
