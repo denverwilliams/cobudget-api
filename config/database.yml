@@ -17,3 +17,10 @@ test:
   database: <%= ENV['TEST_DB_NAME'] or 'cobudget_test' %>
   username: <%= ENV['DB_USERNAME'] or 'postgres' %>
   password: <%= ENV['DB_PASSWORD'] or '' %>
+  
+production:
+  <<: *defaults
+  host: <%= ENV['DB_PORT_5432_TCP_ADDR'] or 'localhost' %>
+  database: <%= ENV['TEST_DB_NAME'] or 'cobudget_production' %>
+  username: <%= ENV['DB_USERNAME'] or 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] or '' %>
