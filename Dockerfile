@@ -7,8 +7,7 @@ WORKDIR /tmp
 ADD Gemfile Gemfile
 ADD Gemfile.lock Gemfile.lock
 RUN bundle install --full-index --jobs $(nproc)
-RUN gem install mailcatcher
-RUN mailcatcher
+RUN gem install actionmailer -v 4.2.6
 
 ADD . /app
 WORKDIR /app
