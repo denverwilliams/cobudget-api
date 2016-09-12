@@ -54,6 +54,16 @@ docker run --detach \
 postgres:latest
 ```
 
+### Docker Run Proxy
+
+```
+docker run --detach \
+--name cobudget-proxy \ 
+-p 443:443 -p 80:80 \
+--volume /var/run/docker.sock:/tmp/docker.sock:ro \
+jwilder/nginx-proxy
+```
+
 ### Docker RUN API
 ```
 docker run --detach \
@@ -61,6 +71,8 @@ docker run --detach \
 --env DB_USERNAME=secret \
 --env DB_PASSWORD=secret \
 --env DB_PORT_5432_TCP_ADDR=db \
+--env VIRTUAL_HOST=api.ii.org.nz \
+--env VIRTUAL_PORT=3000
 --name cobudget-api \
 --link cobudget-postgres:db \
 docker.ii.org.nz/ii/cobudget-api:master
