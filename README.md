@@ -42,3 +42,25 @@ bundle exec rails s
 ```
 bundle exec rspec
 ```
+
+### Docker RUN DB
+
+```
+docker run --detach \
+--name cobudget-postgres \
+--env POSTGRES_USER=secret \
+--env POSTGRES_PASSWORD=secret \
+--volume /root/volumes:/var/lib/postgresql/data \
+postgres:latest
+```
+
+### Docker RUN API
+```
+docker run --detach \
+--env TEST_DB_NAME=cobudget_test \
+--env DB_USERNAME=secret \
+--env DB_PASSWORD=secret \
+--env DB_PORT_5432_TCP_ADDR=db \
+--name cobudget-api \
+--link cobudget-postgres:db \
+docker.ii.org.nz/ii/cobudget-api:master
