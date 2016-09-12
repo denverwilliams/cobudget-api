@@ -30,15 +30,15 @@ Rails.application.configure do
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: 'cobudget.ii.org.nz' }
+  config.action_mailer.default_url_options = { :host => ENV['CANONICAL_HOST'] }
   
   config.action_mailer.smtp_settings = {
-    :address        => "smtp.gmail.com",
-    :port           => 587,
+    :address        => ENV["SMTP_SERVER"],
+    :port           => ENV['SMTP_PORT'],
     :authentication => :plain,
-    :user_name      => "smtp@hippiehacker.org",
-    :password       => "73%b%8AX",
-    :domain         => "gmail.com",
+    :user_name      => ENV["SMTP_USERNAME"],
+    :password       => ENV["SMTP_PASSWORD"],
+    :domain         => ENV["SMTP_DOMAIN"],
     :enable_starttls_auto => true
   }
 
