@@ -1,4 +1,4 @@
-FROM stackbrew/ruby:2.2.1
+FROM ruby:2.2.1
 
 RUN apt-get update -qq
 RUN apt-get install -y build-essential libpq-dev postgresql-contrib
@@ -12,6 +12,7 @@ RUN gem install actionmailer -v 4.2.6
 ADD . /app
 WORKDIR /app
 
+COPY entry.sh /app
 RUN chmod +x /app/entry.sh
 
 ENTRYPOINT ["/app/entry.sh"]
