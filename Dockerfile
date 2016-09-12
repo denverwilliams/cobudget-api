@@ -12,7 +12,6 @@ RUN gem install actionmailer -v 4.2.6
 ADD . /app
 WORKDIR /app
 
-COPY entry.sh /app
 RUN chmod +x /app/entry.sh
 
 ENTRYPOINT ["/app/entry.sh"]
