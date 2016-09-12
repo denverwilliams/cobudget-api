@@ -67,6 +67,8 @@ jwilder/nginx-proxy
 ### Docker RUN API
 ```
 docker run --detach \
+--env RACK_ENV=test \
+--env RAILS_ENV=test \
 --env TEST_DB_NAME=cobudget_test \
 --env DB_USERNAME=secret \
 --env DB_PASSWORD=secret \
