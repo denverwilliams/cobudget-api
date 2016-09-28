@@ -6,7 +6,7 @@ class UserMailer < ActionMailer::Base
     @initial_allocation_amount = initial_allocation_amount.floor
     @initial_allocation_amount_formatted = Money.new(initial_allocation_amount * 100, @group.currency_code).format
     mail(to: @user.name_and_email,
-        from: "Cobudget Accounts <accounts@cobudget.co>",
+        from: ENV["ACCOUNTS_ENV"],
         subject: "#{inviter.name} invited you to join \"#{group.name}\" on Cobudget")
   end
 
@@ -15,7 +15,7 @@ class UserMailer < ActionMailer::Base
     @group = group
     @formatted_amount = Money.new(amount * 100, @group.currency_code).format
     mail(to: @member.name_and_email,
-         from: "Cobudget Updates <updates@cobudget.co>",
+         from: ENV["UPDATES_ENV"],
          subject: "#{admin.name} gave you funds to spend in #{@group.name}")
   end
 
@@ -26,7 +26,7 @@ class UserMailer < ActionMailer::Base
     @formatted_refund_amount = Money.new(refund_amount * 100, @group.currency_code).format
     action = bucket.archived? ? "archived" : "deleted"
     mail(to: funder.name_and_email,
-         from: "Cobudget Updates <updates@cobudget.co>",
+         from: ENV["UPDATES_ENV"],
          subject: "#{@bucket.name} was #{action}")
   end
 
@@ -34,14 +34,14 @@ class UserMailer < ActionMailer::Base
     @user = user
     subject = @user.confirmed? ? "Reset Password Instructions" : "Set up your Cobudget Account"
     mail(to: user.name_and_email,
-         from: "Cobudget Accounts <accounts@cobudget.co>",
+         from: ENV["ACCOUNTS_ENV"],
          subject: subject)
   end
 
   def confirm_account_email(user:)
     @user = user
     mail(to: user.name_and_email,
-         from: "Cobudget Accounts <accounts@cobudget.co>",
+         from: ENV["ACCOUNTS_ENV"],
          subject: "Time to set up your account!"
     )
   end
@@ -54,7 +54,7 @@ class UserMailer < ActionMailer::Base
     formatted_date = time_range.first.in_time_zone((user.utc_offset || 0) / 60).strftime("%I:%M %p (%B %d, %Y)")
     if @recent_activity.personal_activity_present?
       mail(to: user.name_and_email,
-           from: "Cobudget Updates <updates@cobudget.co>",
+           from: ENV["UPDATES_ENV"],
            subject: "Activity in your Cobudget groups since #{formatted_date}"
       )
     end
@@ -76,7 +76,7 @@ class UserMailer < ActionMailer::Base
 
     if @recent_activity.is_present?
       mail(to: user.name_and_email,
-           from: "Cobudget Updates <updates@cobudget.co>",
+           from: ENV["UPDATES_ENV"],
            subject: "Activity in your Cobudget groups from #{@formatted_time_period} (#{formatted_date})"
       )
     end
