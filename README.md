@@ -58,7 +58,7 @@ postgres:latest
 
 ```
 docker run --detach \
---name cobudget-proxy \ 
+--name cobudget-proxy \
 -p 443:443 -p 80:80 \
 --volume /var/run/docker.sock:/tmp/docker.sock:ro \
 jwilder/nginx-proxy
